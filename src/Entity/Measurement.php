@@ -14,8 +14,8 @@ class Measurement
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'measurements')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: WeatherRecord::class, inversedBy: 'measurements')]
+    #[ORM\JoinColumn(name: 'weather_record_id', referencedColumnName: 'id')]
     private ?WeatherRecord $weatherRecord = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: '0')]
@@ -49,4 +49,16 @@ class Measurement
 
         return $this;
     }
+
+    // public function getDate(): ?\DateTimeInterface  // Getter dla daty
+    // {
+    //     return $this->date;
+    // }
+
+    // public function setDate(\DateTimeInterface $date): static  // Setter dla daty
+    // {
+    //     $this->date = $date;
+
+    //     return $this;
+    // }
 }

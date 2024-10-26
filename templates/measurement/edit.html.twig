@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Measurement{% endblock %}
+
+{% block body %}
+    <h1>Edit Measurement</h1>
+
+    {# Start the form for editing the measurement #}
+    {{ form_start(form) }}
+
+    {# Display each field with error messages #}
+    {{ form_row(form.celsius) }}
+    {% for error in form.celsius.vars.errors %}
+        <div class="alert alert-danger">{{ error.message }}</div>
+    {% endfor %}
+
+    {# Include the weather record selection, assuming it's part of the form #}
+    {{ form_row(form.weatherRecord) }}
+    {% for error in form.weatherRecord.vars.errors %}
+        <div class="alert alert-danger">{{ error.message }}</div>
+    {% endfor %}
+
+    <button type="submit">Update</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_measurement_index') }}">Back to list</a>
+
+    {# Optional: form for deleting the measurement #}
+    {{ include('measurement/_delete_form.html.twig') }}
+{% endblock %}

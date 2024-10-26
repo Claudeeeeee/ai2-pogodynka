@@ -14,21 +14,20 @@ class WeatherController extends AbstractController
     #[Route('/weather/{city}/{country}', name: 'app_weather', requirements: ['city' => '.+', 'country' => '^[A-Z]{2}$'], defaults: ['country' => 'PL'])]
     public function city(string $city, string $country = 'PL', LocationRepository $locationRepository, MeasurementRepository $repository): Response
     {
-        // Wyszukiwanie lokalizacji na podstawie miasta i opcjonalnego kodu kraju
         $location = $locationRepository->findOneBy([
             'city' => $city,
-            'country' => strtoupper($country), // Upewnij się, że kod kraju jest wielkimi literami
+            'country' => strtoupper($country),
         ]);
 
-        // Sprawdzenie, czy lokalizacja została znaleziona
+        
         if (!$location) {
             throw $this->createNotFoundException('Location not found');
         }
 
-        // Pobieranie prognozy pogody dla danej lokalizacji
+        
         $measurements = $repository->findByLocation($location);
 
-        // Renderowanie widoku z danymi lokalizacji i prognozami pogody
+        
         return $this->render('weather/city.html.twig', [
             'location' => $location,
             'measurements' => $measurements,

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Location{% endblock %}
+
+{% block body %}
+    <h1>Edit Location</h1>
+
+    {# Include form for editing location #}
+    {{ form_start(form) }}
+
+    {# Display each field with error messages #}
+    {{ form_row(form.city) }}
+    {# Display city-specific error messages #}
+    {% for error in form.city.vars.errors %}
+        <div class="alert alert-danger">{{ error.message }}</div>
+    {% endfor %}
+
+    {{ form_row(form.country) }}
+    {% for error in form.country.vars.errors %}
+        <div class="alert alert-danger">{{ error.message }}</div>
+    {% endfor %}
+
+    {{ form_row(form.voivodeship) }}
+    {% for error in form.voivodeship.vars.errors %}
+        <div class="alert alert-danger">{{ error.message }}</div>
+    {% endfor %}
+
+    {{ form_row(form.zipcode) }}
+    {% for error in form.zipcode.vars.errors %}
+        <div class="alert alert-danger">{{ error.message }}</div>
+    {% endfor %}
+
+    {{ form_row(form.latitude) }}
+    {% for error in form.latitude.vars.errors %}
+        <div class="alert alert-danger">{{ error.message }}</div>
+    {% endfor %}
+
+    {{ form_row(form.longitude) }}
+    {% for error in form.longitude.vars.errors %}
+        <div class="alert alert-danger">{{ error.message }}</div>
+    {% endfor %}
+
+    <button type="submit">Update</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_location_index') }}">Back to list</a>
+
+    {# Optional: form for deleting the location #}
+    {{ include('location/_delete_form.html.twig') }}
+{% endblock %}
