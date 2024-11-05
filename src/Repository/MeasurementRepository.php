@@ -22,20 +22,28 @@ class MeasurementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Measurement::class);
     }
-
     public function findByLocation(Location $location)
-{
-    $qb = $this->createQueryBuilder('m')
-        ->join('m.weatherRecord', 'wr') // Join with WeatherRecord
-        ->where('wr.location = :location') // Use wr.location to filter by Location
-        ->setParameter('location', $location)
-        ->andWhere('wr.date > :now') // Access the date field from WeatherRecord
-        ->setParameter('now', date('Y-m-d'));
+    {
+        return $this->createQueryBuilder('m')
+            ->innerJoin('m.weatherRecord', 'wr')
+            ->where('wr.location = :location') // Użyj 'wr.location' zamiast 'wr.location_id'
+            ->setParameter('location', $location)
+            ->getQuery()
+            ->getResult();
+    }
+//     public function findByLocation(Location $location)
+// {
+//     $qb = $this->createQueryBuilder('m')
+//         ->join('m.weatherRecord', 'wr') // Join with WeatherRecord
+//         ->where('wr.location = :location') // Use wr.location to filter by Location
+//         ->setParameter('location', $location)
+//         ->andWhere('wr.date > :now') // Access the date field from WeatherRecord
+//         ->setParameter('now', date('Y-m-d'));
 
-    $query = $qb->getQuery();
-    $result = $query->getResult();
-    return $result;
-}
+//     $query = $qb->getQuery();
+//     $result = $query->getResult();
+//     return $result;
+// }
 
     
 
