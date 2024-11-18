@@ -38,16 +38,21 @@ class Measurement
         return $this;
     }
 
-    public function getCelsius(): ?string
+    public function getCelsius(): ?float
     {
         return $this->celsius;
     }
 
-    public function setCelsius(string $celsius): static
+    public function setCelsius(float $celsius): static
     {
         $this->celsius = $celsius;
 
         return $this;
+    }
+
+    public function getFahrenheit(): float
+    {
+        return ($this->getCelsius() * 9 / 5) + 32;
     }
 
     // public function getDate(): ?\DateTimeInterface  // Getter dla daty
